@@ -8,27 +8,27 @@
 - popisuje chování (možné operace) z hlediska uživatele dat
 - často se u nich uvádí časová či paměťová složitost (důležité z hlediska efektivního návrhu různých algoritmu)
 - uživatel používá pouze obecné rozhraní ADT a konkrétní implementace mu zůstává skryta
-- ADT může mít více různých implementací, např. seznam lze implementovat jako dynamicke dynamické pole nebo jako spojový seznam
-- jazyky mají ve svých standartních knihovnách obvykle obsaženy optimalizované implementace různých ADT
+- ADT může mít více různých implementací, např. seznam lze implementovat jako dynamické pole nebo jako spojový seznam
+- jazyky mají ve svých standardních knihovnách obvykle obsaženy optimalizované implementace různých ADT
 
 **Datové struktury**
 
-- narozdíl od ADT se jedná o konkrétní organizaci dat v paměti
-- definuje je ten, kdo je implementuje
+- na rozdíl od ADT se jedná o konkrétní způsob organizace dat v paměti
+- definuje je ten, kdo je implementuje. Může implementovat jeden nebo více ADT.
 - například binární haldu lze uložit do pole
 
 **Datové typy**
 
-- určují rozsah hodnot a definované operace pro proměnou daného typu
+- určují definované operace a další vlastnosti pro proměnou zvoleného typu
 
 ## Vlastnosti
 
 Nejdůležitější vlastnosti abstraktního typu dat jsou:
 
-- **Univerzálnost:** - navržený adt je univerzální a může být použit v libovolném programu (jako hodnota libovolný datový typ)
-- **Zapouzdření:** - vnitřní reprezentace je skryta za transparetní rozhraní, které je poskytováno uživateli (uživatel ví jak použít, ne jak je implementováno)
+- **Univerzálnost:** - navržený ADT je univerzální a může být použit v libovolném programu (jako hodnota ADT může posloužit libovolný datový typ)
+- **Zapouzdření:** - vnitřní reprezentace je skryta za transparentní rozhraní, které je poskytováno uživateli (uživatel ví jak použít, ne jak je implementováno)
 - **Integrita:** - do vnitřní struktury nelze zasahovat jinak, než přes definované rozhraní (zamezuje nechtěnému poškození dat)
-- **Modularita:** - konkrétní implementaci implementaci na spodu je možné libovolně měnit (vylepšovat), aniž by bylo nutné přepisovat programy, které adt využívají (abstrakce modelu od konkrétní implementace)
+- **Modularita:** - konkrétní implementaci je možné libovolně měnit a vylepšovat, aniž by bylo nutné přepisovat programy, které již ADT využívají (abstrakce modelu od konkrétní implementace).
 
 Pokud je ADT programován objektově, jsou většinou tyto vlastnosti splněny.
 
@@ -36,7 +36,7 @@ Pokud je ADT programován objektově, jsou většinou tyto vlastnosti splněny.
 
 Na abstraktním datovém typu rozlišujeme tři druhy základních operací:
 
-- **konstruktor** zodpovídá za správnou inicializaci a sestavené platné reprezentace datového typu na základě dodaných parametrů
+- **konstruktor** zodpovídá za správnou inicializaci a sestavení platné reprezentace datového typu na základě dodaných parametrů
 - **selektor** slouží k získání hodnot (get, empty, peek)
 - **modifikátor** provádí změnu hodnoty (add, remove, pop)
 
@@ -54,12 +54,12 @@ K základním abstraktním datovým typům můžeme zařadit následující kons
 ### Seznam
 
 - kontejner pro ukládání dat předem neznámé délky
-- nerozdíl od množiny (set) se mohou stejné prvky opakovat
+- na rozdíl od množiny (set) se mohou stejné prvky opakovat
 
 Typické operace:
 
 - **add**: vložení hodnoty na konec seznamu
-- **remove**: odstranění hodnoty z určitého indexu (prvky za se přisunou)
+- **remove**: odstranění hodnoty z určitého indexu (prvky za indexem se přeřadí)
 - **get**: čtení hodnoty z určitého indexu
 - **empty**: testování, zda je seznam prázdný
 - **size**: dotaz na velikost seznamu
@@ -69,8 +69,8 @@ Implementace je obvykle realizována jako:
 - **Dynamické pole**
 
   - postaveno na statickém poli pevné velikosti
-  - při vkládání kontrolujeme velikost a vnitřního pole a případně ho zvětšíme
-  - v kontruktoru obvykle předáváme počáteční velikost vnitřního pole
+  - při vkládání kontrolujeme velikost a vnitřního pole a případně ho zvětšíme (vytvoříme nové větší pole, do něhož nakopírujeme stávající hodnoty a to dále využíváme)
+  - v konstruktoru obvykle předáváme počáteční velikost vnitřního pole
   - díky vnitřnímu poli umožňuje rychlejší vyhledávání prvku dle indexu (je možné realizovat binární vyhledávání)
 
 - **Spojových seznam**
@@ -78,7 +78,7 @@ Implementace je obvykle realizována jako:
   - jednotlivé prvky jsou reprezentovány vždy jako uzly, které mají odkaz na svého následníka (případně i předchůdce)
   - uzly je nutné při vyhledávání procházet postupně (pouze lineární vyhledávání)
 
-Spojové seznamy (linked list) mohou existovat **jednosměrné** a **obousměrné**.V jednosměrném seznamu odkazuje každá položka na položku následující a v obousměrném seznamu odkazuje položka na následující i předcházející položky. Zavádí se také ukazatel nebo reference na aktuální (vybraný) prvek seznamu. Na konci (a začátku) seznamu musí být definována zarážka označující konec seznamu.Pokud vytvoříme cyklus tak, že konec seznamu navážeme na jeho počátek, jedná se o **kruhový seznam**. Viz následující ukázky.
+Spojové seznamy (linked list) mohou existovat **jednosměrné** a **obousměrné**.V jednosměrném seznamu odkazuje každá položka na položku následující a v obousměrném seznamu odkazuje položka na následující i předcházející položky. Zavádí se také ukazatel nebo reference na aktuální (vybraný) prvek seznamu. Na konci (a začátku) seznamu musí být definována zarážka označující konec seznamu.Pokud vytvoříme kruh tak, že konec seznamu navážeme na jeho počátek, jedná se o **kruhový seznam**. Viz následující ukázky.
 
 ![Jednosměrný seznam](29_jendosmerny_seznam.png)
 
@@ -151,9 +151,9 @@ _Strom_
 
 **Vlastnosti:**
 
-- **N-arita** - Kolik smí mít každý uzel maximálně potomků, z tohoto hlediska patří mezi neoblíbenější binární stromy (každý uzel má 0, 1 nebo 2 potomky).
+- **N-arita** - Kolik smí mít každý uzel maximálně potomků, z tohoto hlediska patří mezi nejpoužívanější binární stromy (každý uzel má právě 0, 1 nebo 2 potomky).
 - **Hloubka uzlu** - Hloubka uzlu je délka cesty od kořene k uzlu
-- **Výška stromu** - Je rovna hodnotě maximální délky stromu.
+- **Výška stromu** - Je rovna hodnotě maximální hloubky stromu (maximální hodnota hloubky pro všechny uzly).
 - **Šířka stromu** - Počet uzlů na stejné úrovni.
 - **Vyváženost** - Strom je vyvážený, jestliže má uzly rovnoměrně rozložené tak, že má nejmenší možnou výšku.
 
@@ -171,23 +171,28 @@ _Ukázka stromu_
 
 2. Průchod do hloubky
 
-  Procházení začíná v kořeni stromu a postupuje se po potomcích uzlu. Procházení končí, když už v žádné větvi není nenavšívený potomek.
+  Procházení začíná v kořeni stromu a postupuje se po potomcích uzlu. Procházení končí, když už v žádné větvi není nenavštívený potomek.
 
-  Při průchodu je možné zpracovat navštívený uzel (N), projít levý podstrom (L) a projít pravý podstrom (P). Podle pořadí těchto akcí se rozlišují tři druhy průchodu:
+  Při průchodu je možné zpracovat navštívený uzel (N), projít levý podstrom (L) a projít pravý podstrom (R). Podle pořadí těchto akcí se rozlišují tři druhy průchodu:
 
-  - **Preorder** (NLR): F, B, A, D, C, E, G, I, H
+  - **Preorder** (NLR): F, B, A, D, C, E, G, I, H (platí pro strom na obrázku výše)
+  - Pořadí: 1: Proveď akci; 2: Projdi levý podstrom; 3: Projdi pravý podstrom
   - **Inorder** (LNR): A, B, C, D, E, F, G, H, I
+  - Pořadí: 1: Projdi levý podstrom; 2: Proveď akci; 3: Projdi pravý podstrom
   - **Postorder** (LRN): A, C, E, D, B, H, I, G, F
+  - Pořadí: 1: Projdi levý podstrom; 2: Projdi pravý podstrom; 3: Proveď akci
 
 #### Halda
+
+- Halda je speciální typ binárního stromu, používaný zejména pro efektivní nalezení minimálního (nebo maximálního) prvku v konstantním čase.
 
 - stromová struktura splňující vlastnost haldy, tj. pokud ![B](https://latex.codecogs.com/svg.latex?B) je potomek ![A](https://latex.codecogs.com/svg.latex?A), tak
 
   - ![x(B) \geq x(A)](https://latex.codecogs.com/svg.latex?x%28B%29%20%5Cgeq%20x%28A%29) pro _min heap_ nebo
   - ![x(B) \leq x(A)](https://latex.codecogs.com/svg.latex?x%28B%29%20%5Cleq%20x%28A%29) pro _max heap_
 
+- to znamená klíč každého uzlu musí být větší nebo rovný klíčům oběma jeho potomků (resp. obráceně, dle způsobu řazení)
 - vlastnost býti haldou je rekurzivní, všechny podstromy haldy jsou také haldy
-
 - tvar stromu je buď perfektně vyvážený, nebo pokud je poslední úroveň stromu nekompletní, uzly plní strom zleva doprava
 - efektivita operací haldy je klíčová pro mnoho algoritmů
 - často se používá pro implementaci prioritní fronty (na tomto principu funguje heapsort)
